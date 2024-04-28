@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Player;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $players = Player::limit(5)->orderBy('name')->get();
+    return Inertia::render('Game', compact('players'));
+});
+
+Route::get('/players/create', function () {
+    return Inertia::render('PlayerForm');
 });
